@@ -1,0 +1,55 @@
+<svg id="floor-plan-37-final" viewBox="0 0 1000 1200" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .room { fill: #f9dcb3; stroke: #000; stroke-width: 1.5; transition: fill 0.2s; }
+    .blue-room { fill: #a5b4fc; stroke: #000; stroke-width: 1.5; } /* Restrooms/Small utilities */
+    .corridor { fill: #fde047; stroke: #94a3b8; stroke-width: 1; }
+    .label { font-family: sans-serif; font-size: 10px; font-weight: bold; text-anchor: middle; pointer-events: none; }
+    .room:hover, .blue-room:hover { fill: #fbbf24; cursor: pointer; }
+  </style>
+
+  <rect id="corr-top-h" class="corridor" x="180" y="220" width="640" height="35" />
+  <rect id="corr-left-v" class="corridor" x="330" y="255" width="30" height="650" />
+  <rect id="corr-right-v" class="corridor" x="640" y="255" width="30" height="650" />
+  <rect id="corr-mid-h" class="corridor" x="360" y="340" width="280" height="30" />
+  <rect id="corr-btm-h" class="corridor" x="360" y="780" width="280" height="30" />
+
+  <rect id="room-09" class="room" x="200" y="290" width="130" height="90" /><text x="265" y="340" class="label">501</text>
+  <rect id="room-10" class="room" x="200" y="380" width="130" height="110" /><text x="265" y="440" class="label">502</text>
+  <rect id="room-11" class="room" x="200" y="490" width="130" height="110" /><text x="265" y="550" class="label">503</text>
+  <rect id="room-12" class="room" x="200" y="600" width="130" height="110" /><text x="265" y="660" class="label">504</text>
+  <rect id="room-13" class="room" x="200" y="740" width="130" height="100" /><text x="265" y="795" class="label">505</text>
+  <rect id="room-14" class="room" x="200" y="840" width="130" height="90" /><text x="265" y="890" class="label">506</text>
+  <rect id="room-25" class="room" x="360" y="810" width="110" height="100" /><text x="415" y="865" class="label">507</text>
+  <rect id="room-23" class="room" x="360" y="680" width="110" height="100" /><text x="415" y="735" class="label">508</text>
+  <rect id="room-19" class="room" x="360" y="490" width="90" height="120" /><text x="405" y="555" class="label">509</text>
+  <rect id="room-18" class="room" x="360" y="370" width="90" height="120" /><text x="405" y="435" class="label">510</text>
+  <rect id="room-20" class="room" x="550" y="370" width="90" height="120" /><text x="595" y="435" class="label">511</text>
+  <rect id="room-21" class="room" x="550" y="490" width="90" height="120" /><text x="595" y="555" class="label">512</text>
+  <rect id="room-22" class="blue-room" x="580" y="610" width="60" height="70" /><text x="610" y="650" class="label">513</text>
+  <rect id="room-24" class="room" x="530" y="680" width="110" height="100" /><text x="585" y="735" class="label">514</text>
+  <rect id="room-26" class="room" x="530" y="810" width="110" height="100" /><text x="585" y="865" class="label">515</text>
+  <rect id="room-37" class="room" x="670" y="920" width="130" height="40" /><text x="735" y="945" class="label">516</text>
+  <rect id="room-36" class="room" x="670" y="880" width="130" height="40" /><text x="735" y="905" class="label">517</text>
+  <rect id="room-35" class="room" x="670" y="840" width="130" height="40" /><text x="735" y="865" class="label">518</text>
+  <rect id="room-34" class="room" x="670" y="800" width="130" height="40" /><text x="735" y="825" class="label">519</text>
+  <rect id="room-33" class="room" x="670" y="740" width="130" height="60" /><text x="735" y="775" class="label">520</text>
+  <rect id="room-32" class="room" x="670" y="600" width="130" height="110" /><text x="735" y="660" class="label">521</text>
+  <rect id="room-31" class="room" x="670" y="490" width="130" height="110" /><text x="735" y="550" class="label">522</text>
+  <rect id="room-30" class="room" x="670" y="380" width="130" height="110" /><text x="735" y="440" class="label">523</text>
+  <rect id="room-29" class="room" x="670" y="290" width="130" height="90" /><text x="735" y="340" class="label">524</text>
+  <rect id="room-17" class="room" x="550" y="255" width="90" height="85" /><text x="595" y="300" class="label">525</text>
+  <rect id="room-16" class="room" x="450" y="255" width="100" height="85" /><text x="500" y="300" class="label">526</text>
+  <rect id="room-15" class="room" x="360" y="255" width="90" height="85" /><text x="405" y="300" class="label">527</text>
+  <rect id="room-08" class="blue-room" x="210" y="255" width="50" height="35" /><text x="235" y="275" class="label">528</text>
+  <rect id="room-07" class="blue-room" x="210" y="220" width="50" height="35" /><text x="235" y="240" class="label">529</text>
+  <rect id="room-01" class="room" x="200" y="150" width="60" height="70" /><text x="230" y="185" class="label">530</text>
+  <rect id="room-02" class="room" x="260" y="150" width="100" height="70" /><text x="310" y="185" class="label">531</text>
+  <rect id="room-03" class="room" x="360" y="150" width="80" height="70" /><text x="400" y="185" class="label">532</text>
+  <rect id="room-04" class="room" x="530" y="150" width="80" height="70" /><text x="570" y="185" class="label">533</text>
+  <rect id="room-05" class="room" x="610" y="150" width="100" height="70" /><text x="660" y="185" class="label">534</text>
+  <rect id="room-06" class="room" x="710" y="150" width="60" height="70" /><text x="740" y="185" class="label">535</text>
+  <rect id="room-27" class="blue-room" x="770" y="220" width="50" height="35" /><text x="795" y="240" class="label">536</text>
+  <rect id="room-28" class="blue-room" x="770" y="255" width="50" height="35" /><text x="795" y="275" class="label">537</text>
+<rect id="STAIR" x="500" y="350" width="50" height="80" fill="#bbb"/>
+<text x="505" y="395" font-size="14">STAIR</text>
+</svg>

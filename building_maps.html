@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Walkable Building Navigation – GITAM VSP</title>
+
+  <!-- MapLibre CSS -->
+  <link
+    href="https://unpkg.com/maplibre-gl@3.6.0/dist/maplibre-gl.css"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    #map {
+      height: 500px;
+      width: 100%;
+      margin-top: 20px;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <h2 class="logo">GITAM</h2>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="rooms.html">Find Room</a></li>
+    <li><a href="floor_maps.html">Floor Maps</a></li>
+    <li><a href="building_maps_maplibre.html">Building Maps</a></li>
+  </ul>
+</aside>
+
+<main class="content">
+  <h2>Walkable Building Navigation – GITAM VSP</h2>
+
+  <label>From Building</label><br />
+  <select id="from">
+    <option value="">Select</option>
+    <option value="A">VB</option>
+    <option value="B">KRC</option>
+    <option value="C">CB</option>
+    <option value="D">ICT</option>
+    <option value="E">CVR</option>
+    <option value="F">GSB</option>
+    <option value="G">LAW</option>
+    <option value="H">Architecture</option>
+    <option value="I">CRL</option>
+    <option value="J">IEB</option>
+    <option value="K">Pharmacy</option>
+    <option value="L">GITAM Bhavan</option>
+    <option value="M">Dental</option>
+    <option value="N">VDC/GIFT</option>
+  </select>
+
+  <br /><br />
+
+  <label>To Building</label><br />
+  <select id="to">
+    <option value="">Select</option>
+    <option value="A">VB</option>
+    <option value="B">KRC</option>
+    <option value="C">CB</option>
+    <option value="D">ICT</option>
+    <option value="E">CVR</option>
+    <option value="F">GSB</option>
+    <option value="G">LAW</option>
+    <option value="H">Architecture</option>
+    <option value="I">CRL</option>
+    <option value="J">IEB</option>
+    <option value="K">Pharmacy</option>
+    <option value="L">GITAM Bhavan</option>
+    <option value="M">Dental</option>
+    <option value="N">VDC/GIFT</option>
+  </select>
+
+  <br /><br />
+
+  <button onclick="showWalkablePath()">Show Walkable Path</button>
+
+  <div id="map"></div>
+</main>
+
+<!-- MapLibre JS -->
+<script src="https://unpkg.com/maplibre-gl@3.6.0/dist/maplibre-gl.js"></script>
+
+<script>
+/* BUILDING COORDINATES (lng, lat) */
+const buildings = {
+  A: { name: "VB", coords: [83.375333, 17.781405] },
+  B: { name: "KRC", coords: [83.377454, 17.782095] },
+  C: { name: "CB", coords: [83.376910, 17.781067] },
+  D: { name: "ICT", coords: [83.376439, 17.780348] },
+  E: { name: "CVR", coords: [83.377186, 17.780526] },
+  F: { name: "GSB", coords: [83.377715, 17.782658] },
+  G: { name: "LAW", coords: [83.378322, 17.782971] },
+  H: { name: "Architecture", coords: [83.374601, 17.780945] },
+  I: { name: "CRL", coords: [83.374422, 17.780640] },
+  J: { name: "IEB", coords: [83.375393, 17.780087] },
+  K: { name: "Pharmacy", coords: [83.374697, 17.779966] },
+  L: { name: "GITAM Bhavan", coords: [83.379459, 17.780801] },
+  M: { name: "Dental", coords: [83.378720, 17.780226] },
+  N: { name: "VDC / GIFT", coords: [83.376342, 17.782788] }
+};
+
+/* MAP INIT */
+const map = new maplibregl.Map({
+  container: "map",
+  style: "https://tiles.openfreemap.org/styles/liberty",
+  center: buildings.A.coords,
+  zoom: 17
+});
+
+map.addControl(new maplibregl.NavigationControl());
+
+/* MARKERS */
+Object.values(buildings).forEach(b => {
+  new maplibregl.Marker()
+    .setLngLat(b.coords)
+    .setPopup(new maplibregl.Popup().setText(b.name))
+    .addTo(map);
+});
+
+let routeAdded = false;
+
+/* ROUTING FUNCTION */
+function showWalkablePath() {
+  const from = document.getElementById("from").value;
+  const to = document.getElementById("to").value;
+
+  if (!from || !to || from === to) {
+    alert("Please select two different buildings");
+    return;
+  }
+
+  const start = buildings[from].coords;
+  const end = buildings[to].coords;
+
+  const url = `https://router.project-osrm.org/route/v1/foot/${start[0]},${start[1]};${end[0]},${end[1]}?geometries=geojson`;
+
+  fetch(url)
+    .then(res => res.json())
+    .then(data => {
+      const routeGeoJSON = {
+        type: "Feature",
+        geometry: data.routes[0].geometry
+      };
+
+      if (routeAdded) {
+        map.removeLayer("route-line");
+        map.removeSource("route");
+      }
+
+      map.addSource("route", {
+        type: "geojson",
+        data: routeGeoJSON
+      });
+
+      map.addLayer({
+        id: "route-line",
+        type: "line",
+        source: "route",
+        paint: {
+          "line-color": "#16a34a",
+          "line-width": 5
+        }
+      });
+
+      routeAdded = true;
+
+      // Fit view to route
+      const coords = routeGeoJSON.geometry.coordinates;
+      const bounds = coords.reduce(
+        (b, c) => b.extend(c),
+        new maplibregl.LngLatBounds(coords[0], coords[0])
+      );
+      map.fitBounds(bounds, { padding: 50 });
+    });
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Faculty Finder</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<aside class="sidebar">
+  <h2 class="logo">GITAM</h2>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="rooms.html">Find Room</a></li>
+    <li><a href="floor_maps.html">Floor Maps</a></li>
+    <li><a href="faculty.html">Faculty Finder</a></li>
+    <li><a href="empty_rooms.html">Empty Rooms</a></li>
+    <li><a href="building_maps.html">Building Maps</a></li>
+  </ul>
+</aside>
+
+<main class="content">
+  <h2>Faculty Finder</h2>
+
+  <input type="text" id="facultySearch" placeholder="Enter faculty name">
+  <button onclick="searchFaculty()">Search</button>
+
+  <div id="facultyResult"></div>
+</main>
+
+<script>
+const facultyDB = [
+  { id: "FAC101", name: "ambeshwar Kumar", room: "325", phone: "9876543210", dept: "CSE" },
+  { id: "FAC102", name: "Sharma", room: "325", phone: "9876543211", dept: "ECE" },
+  { id: "FAC103", name: "Budharaju Sowjanya", room: "325", phone: "9876543212", dept: "IT" },
+  { id: "FAC104", name: "Gondi Lakshmeswari", room: "325", phone: "9876543213", dept: "AI & DS" },
+  { id: "FAC105", name: "Rodda Sirisha", room: "326", phone: "9876543214", dept: "CSE" },
+  { id: "FAC106", name: "Darla Sidharth", room: "326", phone: "9876543215", dept: "ECE" },
+  { id: "FAC107", name: "Naina Narang", room: "326", phone: "9876543216", dept: "IT" },
+  { id: "FAC108", name: "Saritha", room: "326", phone: "9876543217", dept: "AI & DS" },
+  { id: "FAC109", name: "Owk Mrudula", room: "404", phone: "9876543218", dept: "CSE" },
+  { id: "FAC110", name: "Malar selvi", room: "404", phone: "9876543219", dept: "ECE" },
+  { id: "FAC111", name: "Praveena", room: "325", phone: "9876543220", dept: "IT" },
+  { id: "FAC112", name: "Rita Roy", room: "327", phone: "9876543221", dept: "AI & DS" },
+  { id: "FAC113", name: "Pemmada Suresh Kumar", room: "204", phone: "9876543222", dept: "CSE" },
+  { id: "FAC114", name: "Chandra Sekhar Potala", room: "204", phone: "9876543223", dept: "ECE" },
+  { id: "FAC115", name: "Deena Hijam", room: "225", phone: "9876543224", dept: "IT" },
+  { id: "FAC116", name: "Aruna kumari", room: "222", phone: "9876543225", dept: "AI & DS" },
+  { id: "FAC117", name: "Neelima", room: "204", phone: "9876543226", dept: "CSE" },
+  { id: "FAC118", name: "Srinivasulu", room: "502", phone: "9876543227", dept: "ECE" },
+  { id: "FAC119", name: "Katragadda Sharada", room: "338", phone: "9876543228", dept: "IT" },
+  { id: "FAC120", name: "Kaviti Prasad", room: "503", phone: "9876543229", dept: "AI & DS" },
+  { id: "FAC121", name: "", room: "502", phone: "9876543230", dept: "CSE" },
+  { id: "FAC122", name: "Mohana Rao", room: "502", phone: "9876543231", dept: "ECE" },
+  { id: "FAC123", name: "Anil Kumar Vemula", room: "338", phone: "9876543232", dept: "IT" },
+  { id: "FAC124", name: "Siva Sankar", room: "503", phone: "9876543233", dept: "AI & DS" }
+];
+
+function searchFaculty() {
+  const input = document.getElementById("facultySearch").value.trim().toLowerCase();
+  const result = document.getElementById("facultyResult");
+
+  if (!input) {
+    result.innerHTML = "<p>Please enter a faculty name</p>";
+    return;
+  }
+
+  const faculty = facultyDB.find(f =>
+    f.name.toLowerCase().includes(input)
+  );
+
+  if (!faculty) {
+    result.innerHTML = "<p>No faculty found</p>";
+    return;
+  }
+
+  result.innerHTML = `
+    <div class="card">
+      <p><b>ID:</b> ${faculty.id}</p>
+      <p><b>Name:</b> ${faculty.name}</p>
+      <p><b>Department:</b> ${faculty.dept}</p>
+      <p><b>Staff Room:</b> ${faculty.room}</p>
+      <p><b>Phone:</b> ${faculty.phone}</p>
+    </div>
+  `;
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Empty Rooms Finder</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<aside class="sidebar">
+  <h2 class="logo">GITAM</h2>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="rooms.html">Find Room</a></li>
+    <li><a href="floor_maps.html">Floor Maps</a></li>
+    <li><a href="faculty.html">Faculty Finder</a></li>
+    <li><a href="empty_rooms.html">Empty Rooms</a></li>
+    <li><a href="building_maps.html">Building Maps</a></li>
+  </ul>
+</aside>
+
+<main class="content">
+  <h2>Empty Rooms Finder</h2>
+
+  <select id="timeSlot" onchange="showFloorDropdown()">
+    <option value="">Select Time Slot</option>
+    <option value="8-9">8:00 – 9:00</option>
+    <option value="9-10">9:00 – 10:00</option>
+    <option value="10-11">10:00 – 11:00</option>
+    <option value="11-12">11:00 – 12:00</option>
+    <option value="12-1">12:00 – 1:00</option>
+    <option value="1-2">1:00 – 2:00</option>
+    <option value="2-3">2:00 – 3:00</option>
+    <option value="3-4">3:00 – 4:00</option>
+  </select>
+
+  <select id="floorSelect" style="display:none;" onchange="findEmptyRooms()">
+    <option value="">Select Floor</option>
+    <option value="2">Floor 2</option>
+    <option value="3">Floor 3</option>
+    <option value="4">Floor 4</option>
+    <option value="5">Floor 5</option>
+    <option value="6">Floor 6</option>
+  </select>
+
+  <div id="roomResult"></div>
+</main>
+
+<script>
+const emptyRoomDB = {
+  "8-9": { 2: ["201", "202"], 3: ["301", "305"], 4: ["401", "403"], 5: ["501"], 6: ["602"] },
+  "9-10": { 2: ["205", "208"], 3: ["302", "309"], 4: ["404", "405"], 5: ["505"], 6: ["601"] },
+  "10-11": { 2: ["210"], 3: ["304", "306"], 4: ["406"], 5: ["502", "504"], 6: ["605"] },
+  "11-12": { 2: ["212"], 3: ["311"], 4: ["410", "412"], 5: ["508"], 6: ["608"] },
+  "12-1": { 2: ["215"], 3: ["315"], 4: ["415"], 5: ["510"], 6: ["610"] },
+  "1-2": { 2: ["218"], 3: ["318"], 4: ["418"], 5: ["512"], 6: ["612"] },
+  "2-3": { 2: ["220"], 3: ["320"], 4: ["420"], 5: ["515"], 6: ["615"] },
+  "3-4": { 2: ["225"], 3: ["325"], 4: ["425"], 5: ["520"], 6: ["620"] }
+};
+
+function showFloorDropdown() {
+  document.getElementById("floorSelect").style.display = "block";
+  document.getElementById("roomResult").innerHTML = "";
+}
+
+function findEmptyRooms() {
+  const time = document.getElementById("timeSlot").value;
+  const floor = document.getElementById("floorSelect").value;
+  const result = document.getElementById("roomResult");
+
+  if (!time || !floor) return;
+
+  const rooms = emptyRoomDB[time]?.[floor] || [];
+
+  result.innerHTML = rooms.length
+    ? `<div class="card"><h3>Empty Rooms</h3><p>${rooms.join(", ")}</p></div>`
+    : "<p>No empty rooms available for this selection.</p>";
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Find Room</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<aside class="sidebar">
+  <h2 class="logo">GITAM</h2>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="rooms.html">Find Room</a></li>
+    <li><a href="floor_maps.html">Floor Maps</a></li>
+    <li><a href="faculty.html">Faculty Finder</a></li>
+    <li><a href="empty_rooms.html">Empty Rooms</a></li>
+    <li><a href="building_maps.html">Building Maps</a></li>
+  </ul>
+</aside>
+
+<main class="content">
+  <h2>Find Room – Floor Navigation</h2>
+  <p>Select a floor, then click two rooms to see the path.</p>
+
+  <!-- FLOOR DROPDOWN -->
+  <select id="floorSelect" onchange="loadFloor()">
+    <option value="">Select Floor</option>
+    <option value="floorS2.svg">Floor 2</option>
+    <option value="floorS3.svg">Floor 3</option>
+    <option value="floorS4.svg">Floor 4</option>
+    <option value="floorS5.svg">Floor 5</option>
+    <option value="floorS6.svg">Floor 6</option>
+  </select>
+
+  <!-- SVG LOAD CONTAINER -->
+  <div id="svgContainer"></div>
+</main>
+
+<script>
+function loadFloor() {
+  const floor = document.getElementById("floorSelect").value;
+  const container = document.getElementById("svgContainer");
+
+  if (!floor) {
+    container.innerHTML = "";
+    return;
+  }
+
+  fetch(floor)
+    .then(res => res.text())
+    .then(svg => {
+      container.innerHTML = svg;
+
+      // reattach navigation logic
+      const script = document.createElement("script");
+      script.src = "navigation.js";
+      document.body.appendChild(script);
+    });
+}
+</script>
+
+</body>
+</html>
